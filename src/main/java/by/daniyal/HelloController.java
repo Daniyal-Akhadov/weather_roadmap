@@ -10,12 +10,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 
 @Controller
-@RequestMapping("/hello ")
+@RequestMapping("/hello")
 public class HelloController {
 
-    @GetMapping()
+    @GetMapping
     public String index(Model model) {
         model.addAttribute("name", "World");
         return "index";
+    }
+
+    @GetMapping
+    public String something(Model model) {
+        model.addAttribute("name", "World");
+        return "error";
     }
 }
