@@ -1,16 +1,17 @@
 package by.daniyal.weather.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
+@Builder
+@AllArgsConstructor
 @Table(name = "locations")
 public class Location {
     @Id
@@ -22,11 +23,11 @@ public class Location {
     private String name;
 
     @Column(name = "user_id")
-    private String userId;
+    private int userId;
 
     @Column(name = "latitude")
-    private LocalDateTime latitude;
+    private BigDecimal latitude;
 
     @Column(name = "longitude")
-    private LocalDateTime longitude;
+    private BigDecimal longitude;
 }

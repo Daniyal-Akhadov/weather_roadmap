@@ -3,7 +3,10 @@ package by.daniyal.weather.services;
 import by.daniyal.weather.services.weather.WeatherResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -13,7 +16,15 @@ public class WeatherService {
 
     private final RestTemplate restTemplate;
 
-    public WeatherResponse getWeatherByName(String name) {
-        return restTemplate.getForObject(URL.formatted(name), WeatherResponse.class);
+    public Optional<WeatherResponse> getWeatherByName(String name) {
+        WeatherResponse weatherResponse = null;
+
+        try {
+            weatherResponse = restTemplate.getForObject(URL.formatted(name), WeatherResponse.class);
+        } catch (Exception e) {
+            // TODO
+        }
+
+        return Optional.ofNullable(weatherResponse);
     }
 }

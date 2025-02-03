@@ -30,7 +30,6 @@ public class AuthenticationController {
 
     @PostMapping
     public String signIn(@RequestParam String username,
-                         @RequestParam String password,
                          HttpServletRequest request,
                          HttpServletResponse response) {
         Cookie[] cookies = request.getCookies();

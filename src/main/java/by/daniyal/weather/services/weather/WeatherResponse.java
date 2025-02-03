@@ -12,6 +12,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WeatherResponse {
+    private 
     private Weather[] weather;
     private Main main;
     private Sys sys;
