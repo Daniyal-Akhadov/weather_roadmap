@@ -14,7 +14,6 @@ import java.util.Optional;
 @AllArgsConstructor
 public class AuthorizationController {
     private final AuthorizationService authorizationService;
-    private final SessionService sessionService;
 
     @GetMapping("/sign-up")
     public String signUp() {

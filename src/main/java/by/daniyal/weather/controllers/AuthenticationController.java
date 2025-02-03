@@ -2,17 +2,13 @@ package by.daniyal.weather.controllers;
 
 import by.daniyal.weather.models.Session;
 import by.daniyal.weather.models.User;
-import by.daniyal.weather.services.AuthenticationService;
 import by.daniyal.weather.services.AuthorizationService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -24,24 +20,19 @@ import java.util.stream.Stream;
 @AllArgsConstructor
 public class AuthenticationController {
 
-    private final AuthenticationService authenticationService;
     private final AuthorizationService authorizationService;
     private final SessionService sessionService;
 
     @GetMapping
-    public String signIn() {
+    public String signInPage() {
         return "sign-in";
     }
 
     @PostMapping
-    public String signInPost(@RequestParam String username,
-                             @RequestParam String password,
-                             HttpServletRequest request,
-                             HttpServletResponse response) {
-
-        if (true)
-            return "redirect:/index";
-
+    public String signIn(@RequestParam String username,
+                         @RequestParam String password,
+                         HttpServletRequest request,
+                         HttpServletResponse response) {
         Cookie[] cookies = request.getCookies();
 
         if (cookies != null) {
