@@ -13,7 +13,8 @@ create table public.Locations
     name      varchar(128)              not null,
     user_id   int references Users (id) not null,
     latitude  decimal                   not null,
-    longitude decimal                   not null
+    longitude decimal                   not null,
+    UNIQUE (latitude, longitude)
 );
 
 create table public.Sessions

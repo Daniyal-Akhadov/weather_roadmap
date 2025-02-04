@@ -36,35 +36,37 @@
         </div>
 
         <h2>Locations:</h2>
-        <form th:action="@{/search}" method="post">
-            <div class="row" th:if="${#lists.size(cities) > 0}">
-                <div class="col-12 col-lg-3 col-md-6 mb-4" th:each="city: ${cities}">
-                    <div class="card h-100">
+
+        <div class="row" th:if="${#lists.size(cities) > 0}">
+            <div class="col-12 col-lg-3 col-md-6 mb-4" th:each="city: ${cities}">
+                <div class="card h-100">
+                    <form th:action="@{/search}" method="post">
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title">
-                                <input type="hidden" th:name="name" th:value="${city.name}" />
+                                <input type="hidden" th:name="name" th:value="${city.name}"/>
                                 <span th:text="${city.name}">San Francisco</span>
                             </h5>
                             <p class="card-text mb-1">
-                                <input type="hidden" th:name="lat" th:value="${city.lat}" />
+                                <input type="hidden" th:name="lat" th:value="${city.lat}"/>
                                 <span th:text="${city.lat}">Latitude: 37.7790262</span>
                             </p>
                             <p class="card-text mb-1">
-                                <input type="hidden" th:name="lon" th:value="${city.lon}" />
+                                <input type="hidden" th:name="lon" th:value="${city.lon}"/>
                                 <span th:text="${city.lon}">Longitude: -122.419906</span>
                             </p>
                             <p class="card-text mb-1">
-                                <input type="hidden" th:name="country" th:value="${city.country}" />
+                                <input type="hidden" th:name="country" th:value="${city.country}"/>
                                 <span th:text="${city.country}">Country: US</span>
                             </p>
                             <div class="mt-auto">
                                 <button type="submit" class="btn btn-primary w-100">Add</button>
                             </div>
                         </div>
-                    </div>
+                    </form>
+
                 </div>
             </div>
-        </form>
+        </div>
 
 
     </div>
