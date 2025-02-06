@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @AllArgsConstructor
 @Service
-public class WeatherService {
+public class ApiWeatherService {
     private static final String BY_NAME =
             "https://api.openweathermap.org/data/2.5/weather?q=%s&appid=800c82f878876e1bb151ad38e99af65a&units=metric&lang=en";
 
@@ -50,5 +50,4 @@ public class WeatherService {
 
         return Optional.ofNullable(weatherResponse);
     }
-
 }

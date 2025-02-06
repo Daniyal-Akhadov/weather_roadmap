@@ -8,5 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface SessionRepository extends JpaRepository<Session, String> {
-    Optional<Session> findById(String uuid);
+    @Override
+    Optional<Session> findById(String s);
 }

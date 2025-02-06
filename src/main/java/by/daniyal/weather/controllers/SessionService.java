@@ -19,4 +19,8 @@ public class SessionService {
     public Optional<Session> findBySessionId(String sessionId) {
         return sessionRepository.findById(sessionId);
     }
+
+    public void deleteBySessionId(String sessionId) {
+        sessionRepository.deleteById(sessionId);
+    }
 }

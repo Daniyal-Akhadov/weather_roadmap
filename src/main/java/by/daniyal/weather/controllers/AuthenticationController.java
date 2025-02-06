@@ -43,7 +43,7 @@ public class AuthenticationController {
                 Optional<Session> session = sessionService.findBySessionId(loggedIn.get().getValue());
 
                 if (session.isPresent()) {
-                    return "redirect:/index";
+                    return "redirect:/";
                 }
             }
         }
@@ -64,7 +64,7 @@ public class AuthenticationController {
             cookie.setMaxAge(10_000);
             cookie.setPath("/");
             response.addCookie(cookie);
-            return "redirect:/index";
+            return "redirect:/";
         } else {
             return "redirect:/sign-in";
         }

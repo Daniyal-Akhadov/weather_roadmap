@@ -4,7 +4,7 @@ import by.daniyal.weather.City;
 import by.daniyal.weather.models.Location;
 import by.daniyal.weather.models.Session;
 import by.daniyal.weather.repositories.LocationsRepository;
-import by.daniyal.weather.services.WeatherService;
+import by.daniyal.weather.services.ApiWeatherService;
 import by.daniyal.weather.services.weather.WeatherResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -12,13 +12,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
 @RequestMapping("/search")
 @AllArgsConstructor
 public class SearchController {
-    private final WeatherService weatherService;
+    private final ApiWeatherService apiWeatherService;
     private final LocationsRepository locationsRepository;
     private final SessionService sessionService;
 
@@ -26,8 +27,7 @@ public class SearchController {
     public String find(@CookieValue("SESSION_ID") String sessionId,
                        @RequestParam(value = "name", required = false) String name,
                        Model model) {
-        Optional<Session> session = sessionService.findBySessionId(sessionId);
-        City[] cities = weatherService.getByAllStatesChoices(name);
+        City[] cities = apiWeatherService.getByAllStatesChoices(name);
         model.addAttribute("cities", cities);
         return "search-results";
     }
@@ -40,7 +40,7 @@ public class SearchController {
                        @RequestParam(value = "country") String country
     ) {
         Optional<Session> session = sessionService.findBySessionId(sessionId);
-        Optional<WeatherResponse> weather = weatherService.getByCoordinate(lat, lon);
+        Optional<WeatherResponse> weather = apiWeatherService.getByCoordinate(lat, lon);
 
         if (weather.isPresent()) {
             Location location = Location.builder()
@@ -50,9 +50,14 @@ public class SearchController {
                     .userId(session.get().getUserId())
                     .build();
 
-            locationsRepository.save(location);
+            List<Location> locationsByLatitudeAndLongitude = locationsRepository.findLocationsByLatitudeAndLongitude(location.getLatitude(), location.getLongitude());
+
+            if (locationsByLatitudeAndLongitude.isEmpty()) {
+                locationsRepository.save(location);
+                return "redirect:/";
+            }
         }
 
-        return "redirect:/index";
+        return "redirect:search";
     }
 }
