@@ -2,7 +2,6 @@ package by.daniyal.weather.controllers;
 
 import by.daniyal.weather.models.Session;
 import by.daniyal.weather.models.User;
-import by.daniyal.weather.repositories.UserRepository;
 import by.daniyal.weather.services.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,12 +13,14 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
-import static by.daniyal.weather.controllers.CookieConstraints.SESSION_ID;
+import static by.daniyal.weather.controllers.CookieConfiguration.COOKIE_NAME;
 
 @Controller
 @RequestMapping("/sign-in")
 @AllArgsConstructor
 public class AuthenticationController {
+
+    private final CookieConfiguration cookieConfiguration;
     private final UserService userService;
     private final SessionService sessionService;
 
@@ -29,14 +30,15 @@ public class AuthenticationController {
     }
 
     @PostMapping
-    public String signIn(final @CookieValue(value = SESSION_ID, required = false) String sessionId,
+    public String signIn(final @CookieValue(value = COOKIE_NAME, required = false) String sessionId,
                          final @RequestParam("username") String username,
                          final HttpServletResponse response) {
+        if (sessionId != null) {
+            final Optional<Session> session = sessionService.findBySessionId(sessionId);
 
-        final Optional<Session> session = sessionService.findBySessionId(sessionId);
-
-        if (session.isPresent()) {
-            return "redirect:/";
+            if (session.isPresent()) {
+                return "redirect:/";
+            }
         }
 
         final Optional<User> user = userService.findByLogin(username);
@@ -52,10 +54,10 @@ public class AuthenticationController {
         }
     }
 
-    private static Cookie setCookie(String uuid) {
-        Cookie cookie = new Cookie(SESSION_ID, uuid);
-        cookie.setMaxAge(10_000);
-        cookie.setPath("/");
+    private Cookie setCookie(String uuid) {
+        Cookie cookie = new Cookie(COOKIE_NAME, uuid);
+        cookie.setMaxAge(cookieConfiguration.getExpiryTime());
+        cookie.setPath(cookieConfiguration.getPath());
         return cookie;
     }
 
@@ -67,4 +69,5 @@ public class AuthenticationController {
                 .build();
     }
 }
+
 

@@ -18,6 +18,5 @@ public class AuthorizationService {
 
         return userRepository.save(user);
     }
-
 }
 

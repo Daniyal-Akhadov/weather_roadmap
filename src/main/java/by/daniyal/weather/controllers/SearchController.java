@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 import java.util.Optional;
 
-import static by.daniyal.weather.controllers.CookieConstraints.SESSION_ID;
+import static by.daniyal.weather.controllers.CookieConfiguration.*;
 
 @Controller
 @RequestMapping("/search")
@@ -35,12 +35,11 @@ public class SearchController {
     }
 
     @PostMapping
-    public String find(@CookieValue(value = SESSION_ID, required = false) String sessionId,
+    public String find(@CookieValue(value = COOKIE_NAME, required = false) String sessionId,
                        @RequestParam(value = "name") String name,
                        @RequestParam(value = "lat") BigDecimal lat,
                        @RequestParam(value = "lon") BigDecimal lon,
                        @RequestParam(value = "country") String country) {
-
         Optional<Session> session = sessionService.findBySessionId(sessionId);
         Optional<WeatherResponse> weather = weatherService.getByCoordinate(lat, lon);
 

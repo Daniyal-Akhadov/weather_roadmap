@@ -20,7 +20,7 @@ public class AuthorizationController {
     }
 
     @PostMapping("/sign-up")
-    public String signUpPost(final @RequestParam("name") String username,
+    public String signUpPost(final @RequestParam("username") String username,
                              final @RequestParam("password") String password,
                              final @RequestParam("repeat-password") String repeatPassword) {
         if (!isPasswordValid(password, repeatPassword) || isUsernameTaken(username)) {
