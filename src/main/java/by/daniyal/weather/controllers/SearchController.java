@@ -4,6 +4,7 @@ import by.daniyal.weather.City;
 import by.daniyal.weather.models.Location;
 import by.daniyal.weather.models.Session;
 import by.daniyal.weather.repositories.LocationsRepository;
+import by.daniyal.weather.services.UserService;
 import by.daniyal.weather.services.WeatherService;
 import by.daniyal.weather.services.LocationService;
 import by.daniyal.weather.services.weather.WeatherResponse;
@@ -25,6 +26,7 @@ public class SearchController {
     private final LocationsRepository locationsRepository;
     private final SessionService sessionService;
     private final LocationService locationService;
+    private final UserService userService;
 
     @GetMapping
     public String find(@RequestParam(value = "name", required = false) String name,
@@ -35,13 +37,13 @@ public class SearchController {
     }
 
     @PostMapping
-    public String find(@CookieValue(value = COOKIE_NAME, required = false) String sessionId,
-                       @RequestParam(value = "name") String name,
-                       @RequestParam(value = "lat") BigDecimal lat,
-                       @RequestParam(value = "lon") BigDecimal lon,
-                       @RequestParam(value = "country") String country) {
-        Optional<Session> session = sessionService.findBySessionId(sessionId);
-        Optional<WeatherResponse> weather = weatherService.getByCoordinate(lat, lon);
+    public String find(@CookieValue(value = COOKIE_NAME, required = false) final String sessionId,
+                       @RequestParam(value = "name") final String name,
+                       @RequestParam(value = "lat") final BigDecimal lat,
+                       @RequestParam(value = "lon") final BigDecimal lon,
+                       @RequestParam(value = "country") final String country) {
+        final Optional<Session> session = sessionService.findBySessionId(sessionId);
+        final Optional<WeatherResponse> weather = weatherService.getByCoordinate(lat, lon);
 
         if (session.isEmpty() || weather.isEmpty()) {
             return "redirect:search?name=" + name;
@@ -50,12 +52,17 @@ public class SearchController {
         return handleLocation(session.get(), weather.get(), name, lat, lon, country);
     }
 
-    private String handleLocation(Session session, WeatherResponse weather, String name, BigDecimal lat, BigDecimal lon, String country) {
-        Location location = locationBuilder(name, country, weather, session);
-        boolean hasLocation = locationService.hasUserLocation(lat, lon, session);
+    private String handleLocation(Session session,
+                                  WeatherResponse weather,
+                                  String name,
+                                  BigDecimal lat,
+                                  BigDecimal lon,
+                                  String country) {
+        final Location location = locationService.locationBuilder(name, country, weather, session);
+        final boolean hasLocation = locationService.hasUserLocation(lat, lon, session);
 
         if (!hasLocation) {
-            locationsRepository.save(location);
+            locationService.save(location);
             return "redirect:/";
         }
 
@@ -63,13 +70,4 @@ public class SearchController {
     }
 
 
-    private static Location locationBuilder(String name, String country, WeatherResponse weather, Session session) {
-        return Location.builder()
-                .name(name)
-                .name(name + ", " + country)
-                .longitude(weather.getCoord().getLon())
-                .latitude(weather.getCoord().getLat())
-                .userId(session.getUserId())
-                .build();
-    }
 }

@@ -3,6 +3,7 @@ package by.daniyal.weather.services;
 import by.daniyal.weather.models.Location;
 import by.daniyal.weather.models.Session;
 import by.daniyal.weather.repositories.LocationsRepository;
+import by.daniyal.weather.services.weather.WeatherResponse;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,5 +35,19 @@ public class LocationService {
             }
         }
         return hasLocation;
+    }
+
+    public Location locationBuilder(String name, String country, WeatherResponse weather, Session session) {
+        return Location.builder()
+                .name(name)
+                .name(name + ", " + country)
+                .longitude(weather.getCoord().getLon())
+                .latitude(weather.getCoord().getLat())
+                .userId(session.getUserId())
+                .build();
+    }
+
+    public void save(Location location) {
+        locationRepository.save(location);
     }
 }

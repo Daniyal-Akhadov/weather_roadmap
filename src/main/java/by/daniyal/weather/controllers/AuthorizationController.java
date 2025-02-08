@@ -20,9 +20,9 @@ public class AuthorizationController {
     }
 
     @PostMapping("/sign-up")
-    public String signUpPost(final @RequestParam("username") String username,
-                             final @RequestParam("password") String password,
-                             final @RequestParam("repeat-password") String repeatPassword) {
+    public String signUpPost(@RequestParam("username") final String username,
+                             @RequestParam("password") final String password,
+                             @RequestParam("repeat-password") final String repeatPassword) {
         if (!isPasswordValid(password, repeatPassword) || isUsernameTaken(username)) {
             return redirectToSignUp();
         }
