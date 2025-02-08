@@ -3,7 +3,7 @@ package by.daniyal.weather.controllers;
 import by.daniyal.weather.models.Location;
 import by.daniyal.weather.models.Session;
 import by.daniyal.weather.repositories.LocationsRepository;
-import by.daniyal.weather.services.ApiWeatherService;
+import by.daniyal.weather.services.WeatherService;
 import by.daniyal.weather.services.weather.Coord;
 import by.daniyal.weather.services.weather.WeatherResponse;
 import lombok.AllArgsConstructor;
@@ -19,7 +19,7 @@ import java.util.*;
 @Controller
 @RequestMapping("/")
 public class WeatherController {
-    private final ApiWeatherService apiWeatherService;
+    private final WeatherService weatherService;
     private final LocationsRepository locationsRepository;
     private final SessionService sessionService;
 
@@ -36,7 +36,7 @@ public class WeatherController {
             List<WeatherResponse> weathers = new ArrayList<>();
 
             for (Coord coord : coords) {
-                Optional<WeatherResponse> weatherByName = apiWeatherService.getByCoordinate(coord.getLon(), coord.getLat());
+                Optional<WeatherResponse> weatherByName = weatherService.getByCoordinate(coord.getLon(), coord.getLat());
                 weatherByName.ifPresent(weathers::add);
             }
 

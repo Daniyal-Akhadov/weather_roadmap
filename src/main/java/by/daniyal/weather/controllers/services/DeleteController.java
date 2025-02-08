@@ -2,11 +2,13 @@ package by.daniyal.weather.controllers.services;
 
 import by.daniyal.weather.controllers.SessionService;
 import by.daniyal.weather.repositories.LocationsRepository;
-import by.daniyal.weather.services.ApiWeatherService;
 import by.daniyal.weather.services.LocationService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
 
@@ -15,7 +17,6 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class DeleteController {
 
-    private final LocationsRepository locationsRepository;
     private final SessionService sessionService;
     private final LocationService locationService;
 

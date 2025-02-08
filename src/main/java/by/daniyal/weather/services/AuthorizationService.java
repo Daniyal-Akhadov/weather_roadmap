@@ -1,16 +1,14 @@
 package by.daniyal.weather.services;
 
 import by.daniyal.weather.models.User;
-import by.daniyal.weather.repositories.AuthorizationRepository;
+import by.daniyal.weather.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class AuthorizationService {
-    private AuthorizationRepository authorizationRepository;
+    private UserRepository userRepository;
 
     public User register(String login, String password) {
         User user = User.builder()
@@ -18,10 +16,8 @@ public class AuthorizationService {
                 .password(password)
                 .build();
 
-        return authorizationRepository.save(user);
+        return userRepository.save(user);
     }
 
-    public Optional<User> findByLogin(String login) {
-        return authorizationRepository.findByLogin(login);
-    }
 }
+

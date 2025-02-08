@@ -1,7 +1,7 @@
 package by.daniyal.weather.services;
 
 import by.daniyal.weather.models.User;
-import by.daniyal.weather.repositories.AuthorizationRepository;
+import by.daniyal.weather.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +11,10 @@ import java.util.Optional;
 @AllArgsConstructor
 public class AuthenticationService {
 
-    private AuthorizationRepository authorizationRepository;
+    private UserRepository userRepository;
 
     public boolean login(String username, String password) {
-        Optional<User> user = authorizationRepository.findByLogin(username);
+        Optional<User> user = userRepository.findByLogin(username);
         return user.map(value -> value.getPassword().equals(password)).orElse(false);
     }
 }
