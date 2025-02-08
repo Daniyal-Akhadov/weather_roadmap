@@ -1,4 +1,4 @@
-package by.daniyal.weather.services.weather;
+package by.daniyal.weather.models.weather;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;

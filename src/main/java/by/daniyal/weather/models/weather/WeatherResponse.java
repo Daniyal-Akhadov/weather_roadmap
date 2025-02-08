@@ -1,4 +1,4 @@
-package by.daniyal.weather.services.weather;
+package by.daniyal.weather.models.weather;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
@@ -6,13 +6,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@NoArgsConstructor
-@Getter
 @Setter
+@Getter
 @ToString
+@NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Weather {
-    private String main;
-    private String description;
-    private String icon;
+public class WeatherResponse {
+    private Coord coord;
+    private Weather[] weather;
+    private Main main;
+    private Sys sys;
+    private String name;
+
 }

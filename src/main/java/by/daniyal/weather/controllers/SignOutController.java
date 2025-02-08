@@ -1,5 +1,6 @@
 package by.daniyal.weather.controllers;
 
+import by.daniyal.weather.services.SessionService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
@@ -7,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import static by.daniyal.weather.controllers.CookieConfiguration.COOKIE_NAME;
+import static by.daniyal.weather.config.CookieConfiguration.COOKIE_NAME;
 
 @Controller
 @AllArgsConstructor

@@ -1,4 +1,4 @@
-package by.daniyal.weather.controllers;
+package by.daniyal.weather.services;
 
 import by.daniyal.weather.models.Session;
 import by.daniyal.weather.repositories.SessionRepository;

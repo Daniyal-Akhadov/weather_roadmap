@@ -1,6 +1,5 @@
-package by.daniyal.weather.controllers;
+package by.daniyal.weather.config;
 
-import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;

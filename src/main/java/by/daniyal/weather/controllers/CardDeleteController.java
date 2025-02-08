@@ -1,8 +1,7 @@
-package by.daniyal.weather.controllers.services;
+package by.daniyal.weather.controllers;
 
-import by.daniyal.weather.controllers.SessionService;
-import by.daniyal.weather.repositories.LocationsRepository;
 import by.daniyal.weather.services.LocationService;
+import by.daniyal.weather.services.SessionService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -15,7 +14,7 @@ import java.math.BigDecimal;
 @Controller
 @RequestMapping("/delete")
 @AllArgsConstructor
-public class DeleteController {
+public class CardDeleteController {
 
     private final SessionService sessionService;
     private final LocationService locationService;

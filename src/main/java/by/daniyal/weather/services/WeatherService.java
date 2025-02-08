@@ -1,7 +1,7 @@
 package by.daniyal.weather.services;
 
-import by.daniyal.weather.City;
-import by.daniyal.weather.services.weather.WeatherResponse;
+import by.daniyal.weather.models.City;
+import by.daniyal.weather.models.weather.WeatherResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
