@@ -15,4 +15,13 @@ public class UserService {
     public Optional<User> findByLogin(String login) {
         return userRepository.findByLogin(login);
     }
+
+    public User register(String login, String password) {
+        User user = User.builder()
+                .login(login)
+                .password(password)
+                .build();
+
+        return userRepository.save(user);
+    }
 }

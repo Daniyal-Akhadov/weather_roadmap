@@ -1,2 +1,0 @@
-package by.daniyal.weather;
-

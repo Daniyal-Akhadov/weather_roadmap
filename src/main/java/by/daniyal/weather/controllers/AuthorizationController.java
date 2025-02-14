@@ -1,6 +1,5 @@
 package by.daniyal.weather.controllers;
 
-import by.daniyal.weather.services.AuthorizationService;
 import by.daniyal.weather.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @AllArgsConstructor
 public class AuthorizationController {
-    private final AuthorizationService authorizationService;
     private final UserService userService;
 
     @GetMapping("/sign-up")
@@ -40,7 +38,7 @@ public class AuthorizationController {
     }
 
     private void registerUser(String username, String password) {
-        authorizationService.register(username, password);
+        userService.register(username, password);
     }
 
     private String redirectToSignIn() {
